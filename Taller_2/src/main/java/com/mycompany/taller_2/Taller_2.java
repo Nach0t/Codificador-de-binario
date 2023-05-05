@@ -1,5 +1,5 @@
 
-package com.mycompany.taller_2;
+
 
 import java.awt.image.BufferedImage;
 import java.io.File;
