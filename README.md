@@ -22,7 +22,3 @@ El programa consta de dos partes principales: ocultar el mensaje en una imagen y
 4. Se convierten los bytes del mensaje oculto en una cadena de caracteres.
 
 ## Uso del programa
-
-1. Compila el código en cmd fuente Java utilizando el comando `javac`:
-   ```bash
-   javac Main.java
