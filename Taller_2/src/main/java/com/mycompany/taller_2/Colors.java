@@ -15,7 +15,7 @@ public class Colors {
     int x = 0;
 int y = 0;
 
-int pixel = image.getRGB(x, y);
+int pixel = Taller2.getRGB(x, y);
 
 Color color = new Color(pixel, true);
 
@@ -23,9 +23,9 @@ int red = color.getRed();
 int green = color.getGreen();
 int blue = color.getBlue();
 
-String binaryRed = Integer.toBinaryString(red);
-String binaryGreen = Integer.toBinaryString(green);
-String binaryBlue = Integer.toBinaryString(blue);
+String binariorojo = Integer.toBinaryString(red);
+String binarioazul = Integer.toBinaryString(blue);
+String binarioverde = Integer.toBinaryString(green);
 
 // La variable "binaryRed" almacena la representación binaria del valor de rojo.
 // La variable "binaryGreen" almacena la representación binaria del valor de verde.
