@@ -8,87 +8,109 @@ package com.mycompany.taller_2;
  *
  * @author ignac
  */
-import java.awt.Color;
 import java.awt.image.BufferedImage;
 import java.io.File;
-import java.io.IOException;
 import javax.imageio.ImageIO;
 
 public class Codigo2 {
     public static void main(String[] args) {
-        // Ruta de la imagen de entrada
-        String imagePath = "C:/Users/diazc/Dropbox/PC/Downloads/Imagen png.png";
-        
-        // Mensaje a ocultar
-        String message = "hola profe";
+        String mensaje = "hola profe";
+        String rutaImagen = "C:\\Users\\ignac\\Downloads\\Imagen.png";
+        String rutaImagenSalida = "C:\\Users\\ignac\\Downloads\\Imagen2.png";
 
         // Ocultar el mensaje en la imagen
-        hideMessage(imagePath, message);
+        ocultarMensaje(mensaje, rutaImagen, rutaImagenSalida);
+
+        // Leer el mensaje oculto en la imagen
+        String mensajeOculto = leerMensajeOculto(rutaImagenSalida);
+
+        System.out.println("Mensaje oculto: " + mensajeOculto);
     }
 
-    private static void hideMessage(String imagePath, String message) {
+    public static void ocultarMensaje(String mensaje, String rutaImagen, String rutaImagenSalida) {
         try {
-            // Cargar la imagen
-            BufferedImage image = ImageIO.read(new File(imagePath));
-            int width = image.getWidth();
-            int height = image.getHeight();
+            // Cargar la imagen original
+            BufferedImage imagen = ImageIO.read(new File(rutaImagen));
 
-            // Convertir el mensaje a bytes
-            byte[] messageBytes = message.getBytes();
-            int messageLength = messageBytes.length;
+            // Convertir el mensaje a un arreglo de bytes
+            byte[] bytesMensaje = mensaje.getBytes();
 
-            // Verificar si el mensaje se puede ocultar en la imagen
-            int pixelCount = width * height;
-            int requiredPixels = messageLength * 8 + 32; // 8 bits por byte + 32 bits para el tamaño del mensaje
-            if (requiredPixels > pixelCount) {
-                System.out.println("El mensaje es demasiado largo para ocultarlo en la imagen.");
-                return;
+            // Ocultar el mensaje en los bits menos significativos de los componentes RGB
+            int indice = 0;
+            for (int y = 0; y < imagen.getHeight(); y++) {
+                for (int x = 0; x < imagen.getWidth(); x++) {
+                    int pixel = imagen.getRGB(x, y);
+                    if (indice < bytesMensaje.length) {
+                        // Obtener el byte correspondiente al índice actual
+                        byte byteMensaje = bytesMensaje[indice];
+
+                        // Obtener los componentes RGB del píxel
+                        int r = (pixel >> 16) & 0xFF;
+                        int g = (pixel >> 8) & 0xFF;
+                        int b = pixel & 0xFF;
+
+                        // Ocultar los bits del byteMensaje en los bits menos significativos de los componentes RGB
+                        r = (r & 0xFE) | ((byteMensaje >> 6) & 0x03);
+                        g = (g & 0xFE) | ((byteMensaje >> 4) & 0x03);
+                        b = (b & 0xFC) | ((byteMensaje >> 2) & 0x03);
+
+                        // Actualizar el píxel modificado en la imagen
+                        int pixelModificado = (pixel & 0xFF000000) | (r << 16) | (g << 8) | b;
+                        imagen.setRGB(x, y, pixelModificado);
+
+                        indice++;
+                    }
+                }
             }
 
-            // Ocultar el tamaño del mensaje en los primeros 32 bits (4 bytes) de la imagen
-            int bitIndex = 0;
-            for (int i = 0; i < 4; i++) {
-                int sizeByte = (messageLength >> (i * 8)) & 0xFF;
-                int pixelIndex = i * 2;
-                setPixelLSB(image, pixelIndex, sizeByte, bitIndex);
-                bitIndex += 2;
-            }
+            // Guardar la imagen modificada con el mensaje oculto
+            File archivoSalida = new File(rutaImagenSalida);
+            ImageIO.write(imagen, "png", archivoSalida);
 
-            // Ocultar cada byte del mensaje en los píxeles de la imagen
-            for (int i = 0; i < messageLength; i++) {
-                byte messageByte = messageBytes[i];
-                int pixelIndex = (i + 4) * 2;
-                setPixelLSB(image, pixelIndex, messageByte, bitIndex);
-                bitIndex += 8;
-            }
-
-            // Guardar la imagen con el mensaje oculto
-            String outputImagePath = "imagen_modificada.png";
-            ImageIO.write(image, "png", new File(outputImagePath));
-            System.out.println("El mensaje ha sido ocultado en la imagen correctamente.");
-
-        } catch (IOException e) {
+            System.out.println("Mensaje oculto correctamente en la imagen.");
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    private static void setPixelLSB(BufferedImage image, int pixelIndex, int value, int bitIndex) {
-        int x = pixelIndex % image.getWidth();
-        int y = pixelIndex / image.getWidth();
+    public static String leerMensajeOculto(String rutaImagenOculta) {
+        StringBuilder mensajeOculto = new StringBuilder();
 
-        Color color = new Color(image.getRGB(x, y));
-        int red = color.getRed();
-        int green = color.getGreen();
-        int blue = color.getBlue();
+        try {
+            // Cargar la imagen oculta
+            BufferedImage imagenOculta = ImageIO.read(new File(rutaImagenOculta));
 
-        // Modificar el bit menos significativo del componente de color
-        int mask = 1 << bitIndex;
-        red = (red & ~1) | ((value & mask) >>> bitIndex);
-        green = (green & ~1) | ((value & mask) >>> bitIndex);
-        blue = (blue & ~1) | ((value & mask) >>> bitIndex);
+            // Leer el mensaje oculto en los bits menos significativos de los componentes RGB
+            int indice = 0;
+            byte byteMensaje = 0;
+            for (int y = 0; y < imagenOculta.getHeight(); y++) {
+                for (int x = 0; x < imagenOculta.getWidth(); x++) {
+                    int pixel = imagenOculta.getRGB(x, y);
 
-        // Actualizar el color del píxel
-        Color modifiedColor = new Color(red, green, blue);
-        image.setRGB(x, y, modifiedColor.getRGB());
+                    // Obtener los componentes RGB del píxel
+                    int r = (pixel >> 16) & 0xFF;
+                    int g = (pixel >> 8) & 0xFF;
+                    int b = pixel & 0xFF;
+
+                    // Recuperar los bits ocultos de los componentes RGB
+                    byteMensaje = (byte) ((byteMensaje << 2) | (r & 0x03));
+                    byteMensaje = (byte) ((byteMensaje << 2) | (g & 0x03));
+                    byteMensaje = (byte) ((byteMensaje << 2) | (b & 0x03));
+
+                    indice++;
+
+                    // Cada 4 bytes leídos forman un carácter del mensaje
+                    if (indice % 4 == 0) {
+                        // El byteMensaje contiene el carácter del mensaje oculto
+                        mensajeOculto.append((char) byteMensaje);
+                        byteMensaje = 0;
+                    }
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return mensajeOculto.toString();
     }
 }
