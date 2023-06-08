@@ -12,7 +12,7 @@ Este programa tiene dos partes principales: ocultar el mensaje en una imagen (en
 2. El mensaje a ocultar se convierte en bytes alterando su frecuencia levemente, haciendo inpersitible por el ojo humano.
 3. Se verifica si el mensaje se puede ocultar en la imagen asegurandose si el tamaño de la imagen y el tamaño del mensaje son correctos.
 4. Se oculta el tamaño del mensaje en los primeros 32 bits imagen (4 bytes).
-5. Se altera el ultimo dijito de cada bits para lograr realizar el ocultamiento.
+5. Se altera el ultimo digito de cada bit para lograr realizar el ocultamiento.
 
 ### Como ejecutar el programa
 
