@@ -12,17 +12,24 @@ Este programa tiene dos partes principales: ocultar el mensaje en una imagen (en
 2. El mensaje a ocultar se convierte en bytes alterando su frecuencia levemente, haciendo inpersitible por el ojo humano.
 3. Se verifica si el mensaje se puede ocultar en la imagen asegurandose si el tamaño de la imagen y el tamaño del mensaje son correctos.
 4. Se oculta el tamaño del mensaje en los primeros 32 bits imagen (4 bytes).
-5. Se altera el ultimo digito de cada bit para lograr realizar el ocultamiento.
+5. Se altera el ultimo dijito de cada bits para lograr realizar el ocultamiento.
 
-### Como ejecutar el programa
+### Como ejecutar el programa: en 
 
-1. Abrir una terminal (CMD, poweshell, Terminales de unix, etc)
-2. Abrir la ubicacion del archivo. (En CMD, usa el comando "cd /ruta/del/archivo/.../").
+##CMD
+
+1. Abrir una terminal CMD
+2. Abrir la ubicacion del archivo. (Usa el comando "cd /ruta/del/archivo/.../").
 3. Una vez hayas abierto la ubicacion del archivo ejecute: Javac Main.java.
 4. Si no hubo nigun error ejecute "dir" para asegurarse que se encuentran los archivos ".class".
 5. Despues ejecute " Java Main encode <mensaje a ocultar> input.png out.png ".
 6. Para finalizar ejecute " Java Main decode out.png ".
 
-
+## Terminal Linux.
+1. Navega hasta la ubicación del archivo utilizando el comando "cd /ruta/del/archivo/.../".
+2. Una vez que estés en la ubicación del archivo, compila el código fuente con el comando "javac Main.java".
+3. Verifica que se hayan generado los archivos ".class" ejecutando el comando "ls" para listar del directorio.
+4. Luego, ejecuta el programa utilizando el comando "java Main encode <mensaje a ocultar> input.png out.png" para ocultar el mensaje en la imagen.
+5. Finalmente, utiliza el comando "java Main decode out.png" para leer y obtener el mensaje oculto de la imagen.
 
 
