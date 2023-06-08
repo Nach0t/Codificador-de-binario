@@ -17,7 +17,7 @@ Este programa tiene dos partes principales: ocultar el mensaje en una imagen (en
 ### Como ejecutar el programa
 
 1. Abrir una terminal (CMD, poweshell, Terminales de unix, etc)
-2. Abrir la ubicacion del archivo. (En cmd es cd /direcion/del/archivo/.../)
+2. Abrir la ubicacion del archivo. (En CMD, usa el comando "cd /ruta/del/archivo/.../").
 3. Una vez hayas abierto la ubicacion del archivo ejecute: Javac Main.java.
 4. Si no hubo nigun error ejecute "dir" para asegurarse que se encuentran los archivos ".class".
 5. Despues ejecute " Java Main encode <mensaje a ocultar> input.png out.png ".
