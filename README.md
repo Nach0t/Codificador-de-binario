@@ -16,7 +16,7 @@ Este programa tiene dos partes principales: ocultar el mensaje en una imagen (en
 
 ### Como ejecutar el programa: en 
 
-##CMD
+## CMD
 
 1. Abrir una terminal CMD
 2. Abrir la ubicacion del archivo. (Usa el comando "cd /ruta/del/archivo/.../").
