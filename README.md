@@ -22,9 +22,9 @@ Este proyecto consiste en un programa en Java que utiliza la técnica de estegan
 3. Se recuperan los bytes del mensaje oculto de los píxeles de la imagen.
 4. Se convierten los bytes del mensaje en una cadena de texto.
 
-### Ejecutar el programa:
+# Ejecutar el programa:
 
-# Puedes ejecutar el programa en la línea de comandos utilizando los siguientes comandos:
+### Puedes ejecutar el programa en la línea de comandos utilizando los siguientes comandos:
 
 ## En CMD (Windows):
 1. Abre una terminal CMD.
