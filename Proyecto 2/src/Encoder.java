@@ -1,44 +1,44 @@
 import java.awt.image.BufferedImage;
+import java.io.IOException;
 
 public class Encoder {
 
-    public void codificarMensaje(BufferedImage imagen, String mensaje) {
-        int ancho = imagen.getWidth();
-        int alto = imagen.getHeight();
-        byte[] bytesMensaje = codificarMensaje(mensaje);
+    public void codificarMensaje(String mensaje, String archivoEntrada, String archivoSalida) throws IOException {
+        BufferedImage imagen = Estenografia.leerImagen(archivoEntrada);
+        byte[] bytesMensaje = codificarMensajeEnBytes(mensaje);
 
-        // Ocultar el tamaño del mensaje en los primeros 32 bits de la imagen
         int tamañoMensaje = bytesMensaje.length;
         int[] bitsTamaño = enteroABits(tamañoMensaje);
 
         int índice = 0;
         for (int i = 0; i < bitsTamaño.length; i++) {
             int bit = bitsTamaño[i];
-            int x = índice % ancho;
-            int y = índice / ancho;
+            int x = índice % imagen.getWidth();
+            int y = índice / imagen.getWidth();
             int rgb = imagen.getRGB(x, y);
             int nuevoRgb = ocultarBit(rgb, bit);
             imagen.setRGB(x, y, nuevoRgb);
             índice++;
         }
 
-        // Ocultar cada byte del mensaje en los píxeles de la imagen
         for (byte b : bytesMensaje) {
             int[] bitsByte = byteABits(b);
             for (int i = 0; i < bitsByte.length; i++) {
                 int bit = bitsByte[i];
-                int x = índice % ancho;
-                int y = índice / ancho;
+                int x = índice % imagen.getWidth();
+                int y = índice / imagen.getWidth();
                 int rgb = imagen.getRGB(x, y);
                 int nuevoRgb = ocultarBit(rgb, bit);
                 imagen.setRGB(x, y, nuevoRgb);
                 índice++;
             }
         }
+
+        Estenografia.guardarImagen(imagen, archivoSalida);
     }
 
     private int ocultarBit(int rgb, int bit) {
-        int máscara = 0xFE; // Máscara para establecer el bit menos significativo en 0
+        int máscara = 0xFE;
         int nuevoRgb = (rgb & máscara) | bit;
         return nuevoRgb;
     }
@@ -59,7 +59,7 @@ public class Encoder {
         return bits;
     }
 
-    private byte[] codificarMensaje(String mensaje) {
+    private byte[] codificarMensajeEnBytes(String mensaje) {
         return mensaje.getBytes();
     }
 }

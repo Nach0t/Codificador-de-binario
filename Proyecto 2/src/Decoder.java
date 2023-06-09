@@ -1,12 +1,12 @@
 import java.awt.image.BufferedImage;
+import java.io.IOException;
 
 public class Decoder {
 
-    public String decodificarMensaje(BufferedImage imagen) {
-        int ancho = imagen.getWidth();
-        int alto = imagen.getHeight();
+    public String decodificarMensaje(String archivoEntrada) throws IOException {
+        BufferedImage imagen = Estenografia.leerImagen(archivoEntrada);
 
-        // Extraer el tamaño del mensaje oculto de los primeros 32 bits de la imagen
+        int ancho = imagen.getWidth();
         int tamaño = 0;
         for (int i = 0; i < 32; i++) {
             int x = i % ancho;
@@ -16,7 +16,6 @@ public class Decoder {
             tamaño = (tamaño << 1) | bit;
         }
 
-        // Recuperar los bytes del mensaje oculto de los píxeles de la imagen
         byte[] bytesMensaje = new byte[tamaño];
         int índice = 0;
         for (int i = 32; i < tamaño * 8 + 32; i++) {
@@ -28,7 +27,6 @@ public class Decoder {
             índice++;
         }
 
-        // Convertir los bytes del mensaje en una cadena de texto
         return new String(bytesMensaje);
     }
 
