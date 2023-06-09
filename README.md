@@ -6,7 +6,7 @@ Este proyecto consiste en un programa en Java que utiliza la técnica de estegan
 
 ### Requisitos:
 1. Tener instalado el Java JDK 8 o versiones superiores.
-2. Usar una imagen.png acorde al mensaje a ocultar. (Este codigo ya porpociona 2 imagenes)
+2. Usar una imagen.png acorde al mensaje a ocultar. (Este codigo ya proporciona 2 imagenes)
 3. Llamar una imagen input.png y la otra out.png.
 
 ### Ocultar el mensaje en una imagen:
