@@ -1,35 +1,44 @@
-# Esteganografía LSB - Ocultar y Leer Mensajes en Imágenes
-
+### Esteganografía LSB - Ocultar y Leer Mensajes en Imágenes
 Este proyecto consiste en un programa en Java que utiliza la técnica de esteganografía LSB (Least Significant Bit) para ocultar mensajes dentro de imágenes en formato PNG. Permite ocultar un mensaje en los píxeles modificados de la imagen y luego leer y obtener ese mensaje oculto.
 
-## Cómo funciona
+### Cómo funciona:
+1. Este programa tiene dos partes principales: ocultar el mensaje en una imagen (encode) y leer el mensaje oculto en una imagen (decode).
 
-Este programa tiene dos partes principales: ocultar el mensaje en una imagen (encode) y la otra que lee el mensaje oculto en una imagen (decode).
+### Requisitos:
+1. Tener instalado el Java JDK 8 o versiones superiores.
+2. Usar una imagen.png acorde al mensaje a ocultar. (Este codigo ya porpociona 2 imagenes)
+3. Llamar una imagen input.png y la otra out.png.
 
-### Ocultar el mensaje en una imagen
-
+### Ocultar el mensaje en una imagen:
 1. Se carga la imagen PNG de entrada.
-2. El mensaje a ocultar se convierte en bytes alterando su frecuencia levemente, haciendo inpersitible por el ojo humano.
-3. Se verifica si el mensaje se puede ocultar en la imagen asegurandose si el tamaño de la imagen y el tamaño del mensaje son correctos.
-4. Se oculta el tamaño del mensaje en los primeros 32 bits imagen (4 bytes).
-5. Se altera el ultimo dijito de cada bits para lograr realizar el ocultamiento.
+2. El mensaje a ocultar se convierte en bytes y se altera su frecuencia levemente, haciéndolo imperceptible para el ojo humano.
+3. Se verifica si el tamaño del mensaje es compatible con el tamaño de la imagen para asegurar que se pueda ocultar.
+4. Se oculta el tamaño del mensaje en los primeros 32 bits de la imagen (4 bytes).
+5. Se altera el bit menos significativo de cada byte de la imagen para codificar el mensaje.
 
-### Como ejecutar el programa: en 
+### Leer el mensaje oculto en una imagen:
+1. Se carga la imagen PNG con el mensaje oculto.
+2. Se extrae el tamaño del mensaje oculto de los primeros 32 bits de la imagen.
+3. Se recuperan los bytes del mensaje oculto de los píxeles de la imagen.
+4. Se convierten los bytes del mensaje en una cadena de texto.
 
-## CMD
+### Ejecutar el programa:
 
-1. Abrir una terminal CMD
-2. Abrir la ubicacion del archivo. (Usa el comando "cd /ruta/del/archivo/.../").
-3. Una vez hayas abierto la ubicacion del archivo ejecute: Javac Main.java.
-4. Si no hubo nigun error ejecute "dir" para asegurarse que se encuentran los archivos ".class".
-5. Despues ejecute " Java Main encode <mensaje a ocultar> input.png out.png ".
-6. Para finalizar ejecute " Java Main decode out.png ".
+# Puedes ejecutar el programa en la línea de comandos utilizando los siguientes comandos:
 
-## Terminal Linux.
+## En CMD (Windows):
+1. Abre una terminal CMD.
+2. Navega hasta la ubicación del archivo. (Utiliza el comando "cd /ruta/del/archivo/.../").
+3. Compila el código fuente ejecutando "javac Main.java".
+4. Verifica que se hayan generado los archivos ".class" ejecutando "dir" para listar el directorio.
+5. Ejecuta el programa para ocultar un mensaje en una imagen con el comando "java Main encode 'mensaje a ocultar' input.png out.png".
+6. Ejecuta el programa para leer y obtener el mensaje oculto de una imagen con el comando "java Main decode out.png".
+
+## En Terminal (Linux / macOS / Unix):
 1. Navega hasta la ubicación del archivo utilizando el comando "cd /ruta/del/archivo/.../".
 2. Una vez que estés en la ubicación del archivo, compila el código fuente con el comando "javac Main.java".
-3. Verifica que se hayan generado los archivos ".class" ejecutando el comando "ls" para listar del directorio.
-4. Luego, ejecuta el programa utilizando el comando "java Main encode <mensaje a ocultar> input.png out.png" para ocultar el mensaje en la imagen.
+3. Verifica que se hayan generado los archivos ".class" ejecutando el comando "ls" para listar el directorio.
+4. Luego, ejecuta el programa utilizando el comando "java Main encode 'mensaje a ocultar' input.png out.png" para ocultar el mensaje en la imagen.
 5. Finalmente, utiliza el comando "java Main decode out.png" para leer y obtener el mensaje oculto de la imagen.
 
 
