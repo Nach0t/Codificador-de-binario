@@ -1,7 +1,14 @@
 import java.io.IOException;
-
+/**
+ * Esta clase es la clase principal del programa.
+ * autores: Claudio Diaz e Ignacio Rehbein.
+ */
 public class Main {
-
+    /**
+     * El método main es el punto de entrada del programa.
+     *
+     * @param args Los argumentos de línea de comandos.
+     */
     public static void main(String[] args) {
         if (args.length < 2) {
             System.out.println("Uso: java Main <comando> <argumentos>");

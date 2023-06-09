@@ -1,8 +1,16 @@
 import java.awt.image.BufferedImage;
 import java.io.IOException;
-
+/**
+ * Esta clase se utiliza para decodificar un mensaje oculto en una imagen utilizando esteganografía LSB.
+ */
 public class Decoder {
-
+    /**
+     * Decodifica un mensaje oculto en una imagen.
+     *
+     * @param archivoEntrada La ruta del archivo de imagen de entrada.
+     * @return El mensaje oculto en la imagen decodificado.
+     * @throws IOException Si ocurre un error al leer la imagen.
+     */
     public String decodificarMensaje(String archivoEntrada) throws IOException {
         BufferedImage imagen = Estenografia.leerImagen(archivoEntrada);
 
@@ -29,7 +37,12 @@ public class Decoder {
 
         return new String(bytesMensaje);
     }
-
+    /**
+     * Extrae el bit menos significativo de un valor RGB.
+     *
+     * @param rgb El valor RGB del píxel.
+     * @return El bit menos significativo del valor RGB.
+     */
     private int extraerBit(int rgb) {
         return rgb & 1;
     }

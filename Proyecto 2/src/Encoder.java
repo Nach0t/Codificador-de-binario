@@ -1,8 +1,17 @@
 import java.awt.image.BufferedImage;
 import java.io.IOException;
-
+/**
+ * Esta clase se utiliza para codificar un mensaje en una imagen con la ayuda de la esteganografía.
+ */
 public class Encoder {
-
+    /**
+     * Codifica un mensaje en una imagen y guarda la imagen resultante.
+     *
+     * @param mensaje        El mensaje que se desea codificar.
+     * @param archivoEntrada La ruta del archivo de imagen de entrada.
+     * @param archivoSalida  La ruta del archivo de imagen de salida.
+     * @throws IOException Si ocurre un error al leer/escribir la imagen.
+     */
     public void codificarMensaje(String mensaje, String archivoEntrada, String archivoSalida) throws IOException {
         BufferedImage imagen = Estenografia.leerImagen(archivoEntrada);
         byte[] bytesMensaje = codificarMensajeEnBytes(mensaje);
@@ -36,13 +45,24 @@ public class Encoder {
 
         Estenografia.guardarImagen(imagen, archivoSalida);
     }
-
+    /**
+     * Oculta un bit en el valor RGB de un píxel.
+     *
+     * @param rgb El valor RGB del píxel.
+     * @param bit El bit a ocultar (0 o 1).
+     * @return El nuevo valor RGB con el bit oculto.
+     */
     private int ocultarBit(int rgb, int bit) {
         int máscara = 0xFE;
         int nuevoRgb = (rgb & máscara) | bit;
         return nuevoRgb;
     }
-
+    /**
+     * Convierte un entero en un arreglo de bits.
+     *
+     * @param valor El entero a convertir.
+     * @return El arreglo de bits.
+     */
     private int[] enteroABits(int valor) {
         int[] bits = new int[32];
         for (int i = 0; i < 32; i++) {
@@ -50,7 +70,12 @@ public class Encoder {
         }
         return bits;
     }
-
+    /**
+     * Convierte un byte en un arreglo de bits.
+     *
+     * @param valor El byte a convertir.
+     * @return El arreglo de bits.
+     */
     private int[] byteABits(byte valor) {
         int[] bits = new int[8];
         for (int i = 0; i < 8; i++) {
@@ -58,7 +83,12 @@ public class Encoder {
         }
         return bits;
     }
-
+    /**
+     * Convierte un mensaje en un arreglo de bytes.
+     *
+     * @param mensaje El mensaje a convertir.
+     * @return El arreglo de bytes del mensaje.
+     */
     private byte[] codificarMensajeEnBytes(String mensaje) {
         return mensaje.getBytes();
     }
