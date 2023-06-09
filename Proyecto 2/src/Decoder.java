@@ -2,7 +2,7 @@ import java.awt.image.BufferedImage;
 
 public class Decoder {
 
-    public static String decodificarMensaje(BufferedImage imagen) {
+    public String decodificarMensaje(BufferedImage imagen) {
         int ancho = imagen.getWidth();
         int alto = imagen.getHeight();
 
@@ -32,7 +32,7 @@ public class Decoder {
         return new String(bytesMensaje);
     }
 
-    private static int extraerBit(int rgb) {
+    private int extraerBit(int rgb) {
         return rgb & 1;
     }
 }

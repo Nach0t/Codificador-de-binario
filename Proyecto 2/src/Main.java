@@ -37,9 +37,10 @@ public class Main {
 
     private static void codificarMensaje(String mensaje, String archivoEntrada, String archivoSalida) {
         try {
-            BufferedImage imagen = SteganographyUtil.leerImagen(archivoEntrada);
-            Encoder.codificarMensaje(imagen, mensaje);
-            SteganographyUtil.guardarImagen(imagen, archivoSalida);
+            BufferedImage imagen = Estenografia.leerImagen(archivoEntrada);
+            Encoder encoder = new Encoder();
+            encoder.codificarMensaje(imagen, mensaje);
+            Estenografia.guardarImagen(imagen, archivoSalida);
             System.out.println("Mensaje codificado y guardado en: " + archivoSalida);
         } catch (IOException e) {
             System.out.println("Error al leer/escribir la imagen: " + e.getMessage());
@@ -48,8 +49,9 @@ public class Main {
 
     private static void decodificarMensaje(String archivoEntrada) {
         try {
-            BufferedImage imagen = SteganographyUtil.leerImagen(archivoEntrada);
-            String mensajeDecodificado = Decoder.decodificarMensaje(imagen);
+            BufferedImage imagen = Estenografia.leerImagen(archivoEntrada);
+            Decoder decoder = new Decoder();
+            String mensajeDecodificado = decoder.decodificarMensaje(imagen);
             System.out.println("Mensaje oculto en la imagen: " + mensajeDecodificado);
         } catch (IOException e) {
             System.out.println("Error al leer la imagen: " + e.getMessage());
